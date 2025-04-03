@@ -112,6 +112,11 @@
 
 
 #macro(renderFacetContent $facet)
+    #if($facet.getQueryType() == "OR")
+        #set($isCheckbox = true)
+    #else
+        #set($isCheckbox = false)
+    #end
     #if($facet && !$facet.isCategoryOnly())
         #if($facet.getId() == 'timeref' || $facet.getId() == 'area' || $facet.getId() == 'area.map' || $facet.getId() == 'attribute' || $facet.getId() == 'area.address')
             #if($facet.getId() == 'timeref')
@@ -250,7 +255,11 @@
                                         #if($subFacet.isSelect())
                                             #renderFacetCategoryEntry($subFacet $facet.getId())
                                         #elseif($subFacet.isDisplay())
-                                            #set($hasUnselectedDisplayFacet = true)
+                                            #if($isCheckbox)
+                                                #set($hasUnselectedDisplayFacet = true)
+                                            #else
+                                                #renderFacetCategoryEntry($subFacet $facet.getId())
+                                            #end
                                         #end
                                     #end
                                 #end
@@ -425,7 +434,13 @@
                     #if($facet.getMobileName())
                       #set ($hasMobileName = true)
                     #end
-                    <input id="facet-$facet.getId()" type="checkbox" #if($isDelete)checked#end onclick="location.href='$doAction'" autocomplete="off">
+                    #if($facet.getParent().getQueryType() == "OR")
+                        #set($isCheckbox = true)
+                    #else
+                        #set($isCheckbox = false)
+                    #end
+                    <input id="facet-$facet.getId()" type="checkbox" #if($isDelete)checked#end onclick="location.href='$doAction'" autocomplete="off"
+                        #if(!$isCheckbox && $facet.isDisplay() &&!$facet.isSelect() && $facet.getParent().isSelect()) disabled#end>
                     <span class="control__indicator"></span>
                     <span class="nr-results">
                     #if($number)
