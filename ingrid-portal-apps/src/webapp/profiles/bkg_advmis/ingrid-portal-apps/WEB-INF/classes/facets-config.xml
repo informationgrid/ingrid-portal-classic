@@ -430,13 +430,6 @@ Am Ende der Datei sind Test-Beispiel für UND- sowie ODER-Abfragen (ohne/mit Dia
                 <id>at32</id>
                 <display>true</display>
             </facet>
-            <!-- Sonstige -->
-            <facet>
-                <name>Sonstige</name>
-                <query>-alternatetitle:"Digitale Orthophotos" -alternatetitle:"Digitale Landschaftsmodelle" -alternatetitle:"Digitale Geländemodelle" -alternatetitle:"Digitale Oberflächenmodelle" -alternatetitle:"Digitale Topographische Karten" -alternatetitle:"basemap.de" -alternatetitle:"3D-Gebäudemodelle" -alternatetitle:"Landbedeckung" -alternatetitle:"Landnutzung" -alternatetitle:"Topographische Sonderkarten" -alternatetitle:"Luftbilder" -alternatetitle:"Sonstige Produkte Geotopographie" -alternatetitle:"ALKIS" -alternatetitle:"Hauskoordinaten" -alternatetitle:"Hausumringe" -alternatetitle:"Verwaltungsgrenzen" -alternatetitle:"Bodenrichtwerte" -alternatetitle:"Festpunkte" -alternatetitle:"INSPIRE Adressen" -alternatetitle:"INSPIRE Flurstücke/Grundstücke" -alternatetitle:"INSPIRE Geografische Bezeichnungen" -alternatetitle:"INSPIRE Gewässernetz" -alternatetitle:"INSPIRE Verkehrsnetze" -alternatetitle:"INSPIRE Verwaltungseinheiten" -alternatetitle:"INSPIRE Bodenbedeckung" -alternatetitle:"INSPIRE Höhe" -alternatetitle:"INSPIRE Orthofotografie" -alternatetitle:"INSPIRE Boden" -alternatetitle:"INSPIRE Bodennutzung" -alternatetitle:"INSPIRE Gebäude 2D" -alternatetitle:"INSPIRE Gebäude 3D" -alternatetitle:"Fachübergreifende Anzeigesysteme"</query>
-                <id>at33</id>
-                <display>true</display>
-            </facet>
         </facets>
     </facet>
     <facet sort="SORT_BY_NAME">
