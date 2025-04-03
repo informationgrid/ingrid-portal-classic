@@ -220,13 +220,19 @@ Am Ende der Datei sind Test-Beispiel für UND- sowie ODER-Abfragen (ohne/mit Dia
         </facets>
     </facet>
     <facet>
-        <name>Open Data</name>
+        <name>Open Data / HVD</name>
         <id>opendata</id>
         <isOpen>true</isOpen>
         <facets>
         <!-- Open Data true-->
            <facet>
-                <name>Ja</name>
+                <name>HVD</name>
+                <query>is_hvd:true</query>
+                <id>opendata_hvd_true</id>
+            </facet>
+        <!-- Open Data true-->
+           <facet>
+                <name>Open Data</name>
                 <query>datatype:metadata (t04_search.searchterm:opendata OR t04_search.searchterm:opendataident)</query>
                 <id>opendata_true</id>
             </facet>
@@ -303,9 +309,9 @@ Am Ende der Datei sind Test-Beispiel für UND- sowie ODER-Abfragen (ohne/mit Dia
             </facet>
         <!-- Open Data -->
            <facet>
-                <name>Open Data</name>
-                <query>datatype:metadata (t04_search.searchterm:opendata OR t04_search.searchterm:opendataident)</query>
-                <id>opendata_true</id>
+                <name>Open Data und HVD</name>
+                <query>is_hvd:true</query>
+                <id>opendata_hvd_true</id>
                 <parentId>opendata</parentId>
                 <icon>ic-opendata</icon>
             </facet>
