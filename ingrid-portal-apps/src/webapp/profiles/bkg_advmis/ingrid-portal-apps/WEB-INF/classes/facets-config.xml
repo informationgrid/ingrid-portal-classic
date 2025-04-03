@@ -446,20 +446,23 @@ Am Ende der Datei sind Test-Beispiel für UND- sowie ODER-Abfragen (ohne/mit Dia
         <!-- Open Data true-->
            <facet>
                 <name>Open Data / HVD</name>
-                <query>is_hvd:true</query>
+                <query>(datatype:metadata is_hvd:true (t04_search.searchterm:opendata OR t04_search.searchterm:opendataident))</query>
                 <id>opendata_hvd_true</id>
+                <display>true</display>
             </facet>
         <!-- Open Data true-->
            <facet>
                 <name>Open Data</name>
-                <query>datatype:metadata (t04_search.searchterm:opendata OR t04_search.searchterm:opendataident)</query>
+                <query>(datatype:metadata (t04_search.searchterm:opendata OR t04_search.searchterm:opendataident))</query>
                 <id>opendata_true</id>
+                <display>true</display>
             </facet>
         <!-- Open Data false-->
            <facet>
                 <name>Nein</name>
-                <query>-t04_search.searchterm:opendata -t04_search.searchterm:opendataident</query>
+                <query>(-t04_search.searchterm:opendata -t04_search.searchterm:opendataident)</query>
                 <id>opendata_false</id>
+                <display>true</display>
             </facet>
         </facets>
     </facet>
@@ -522,7 +525,7 @@ Am Ende der Datei sind Test-Beispiel für UND- sowie ODER-Abfragen (ohne/mit Dia
         <!-- Open Data -->
            <facet>
                 <name>Open Data / HVD</name>
-                <query>is_hvd:true</query>
+                <query>(datatype:metadata is_hvd:true (t04_search.searchterm:opendata OR t04_search.searchterm:opendataident))</query>
                 <id>opendata_hvd_true</id>
                 <parentId>opendata</parentId>
                 <icon>ic-opendata</icon>
