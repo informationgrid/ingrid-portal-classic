@@ -56,7 +56,7 @@
         <section help-key="search-1">
             <header>Sucheingabe</header>
             <content>
-                <p>Suchen ist ganz einfach. Geben Sie in das Suchfeld einen oder 
+                <p>Um nach etwas zu suchen, geben Sie in das Suchfeld einen oder 
                    mehrere Begriffe ein und klicken Sie anschließend auf die 
                    Schaltfläche <b>Suche</b>.</p>
                 <p>Der BASt-Metadatenkatalog durchsucht alle eingebundenen Informationen. Die 
@@ -276,14 +276,14 @@
             <header>Übersicht</header>
              <content>
                 <p>Mit dem Kartenviewer können Sie sich eine Vielzahl 
-                   Karten ansehen und auf diesen operieren.</p>
+                   Karten ansehen und auf diesen arbeiten.</p>
                 <p>Seine Funktionalität umfasst u.a.:</p>
                 <ul>
                     <li>
                         layerzentrierte Darstellung von Karten mit direkter Vorschau
                     </li>
                     <li>
-                        strukturiertes Angebot an Karten + Hinzufügen externer Karten 
+                        strukturiertes Angebot an Karten und Hinzufügen externer Karten 
                     </li>
                     <li>
                         Suche nach Karten direkt auf eingebundenen Karten oder im Suchraum des BASt-Metadatenkatalogs
