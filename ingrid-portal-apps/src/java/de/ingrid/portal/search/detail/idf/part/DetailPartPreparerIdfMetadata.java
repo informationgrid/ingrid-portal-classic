@@ -1962,7 +1962,7 @@ public class DetailPartPreparerIdfMetadata extends DetailPartPreparer{
 
     private String getLayerIdentifier(Node crossReference) {
         if (getUdkObjectClassType().equals("1")) {
-            String href = xPathUtils.getString(rootNode, "./gmd:identificationInfo/gmd:MD_DataIdentification/@uuid");
+            String href = xPathUtils.getString(rootNode, "./gmd:identificationInfo/gmd:MD_DataIdentification/gmd:citation/gmd:CI_Citation/gmd:identifier/gmd:MD_Identifier/gmd:code/*[self::gco:CharacterString or self::gmx:Anchor]");
             if (href != null) {
                 return href;
             }
