@@ -367,6 +367,11 @@ public class UtilsFacete {
                                             }
                                         }
                                     }else{
+                                        if(tmpFacetKey.isDisplayFacets()) {
+                                            for (IngridFacet tmpSubFacet : tmpFacetKey.getFacets()) {
+                                                tmpSubFacet.setSelect(false);
+                                            }
+                                        }
                                         if(tmpFacetValue.isHierarchyTreeLeaf() &&
                                             tmpFacetValue.getFacets().isEmpty() &&
                                             tmpFacetValue.getHierarchyTreeNode() != null) {
