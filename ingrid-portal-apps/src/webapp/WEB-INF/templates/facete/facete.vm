@@ -425,7 +425,7 @@
                 #else
                     #set($isCheckbox = false)
                 #end
-                <label class="control #if($isCheckbox) control--checkbox #else control--radio #end" for="facet-$facet.getId()">
+                <label class="control #if($isCheckbox) control--checkbox #else control--radio#end #if($facet.getParent().isDisplayFacets()) facet--update-nr-results#end" for="facet-$facet.getId()">
                     #set ($hasShortName = false)
                     #if($facet.getShortName())
                       #set ($hasShortName = true)
@@ -439,8 +439,7 @@
                     #else
                         #set($isCheckbox = false)
                     #end
-                    <input id="facet-$facet.getId()" type="checkbox" #if($isDelete)checked#end onclick="location.href='$doAction'" autocomplete="off"
-                        #if($facet.isDisplay() &&!$facet.isSelect() && $facet.getParent().isSelect() && $facet.getParent().isSingleSelect()) disabled#end>
+                    <input id="facet-$facet.getId()" type="checkbox" #if($isDelete)checked#end onclick="location.href='$doAction'" autocomplete="off">
                     <span class="control__indicator"></span>
                     <span class="nr-results">
                     #if($number)
