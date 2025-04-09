@@ -442,6 +442,8 @@ Am Ende der Datei sind Test-Beispiel für UND- sowie ODER-Abfragen (ohne/mit Dia
     <facet>
         <name>Open Data / HVD</name>
         <id>opendata</id>
+        <queryType>OR</queryType>
+        <singleSelect>true</singleSelect>
         <facets>
         <!-- Open Data true-->
            <facet>
