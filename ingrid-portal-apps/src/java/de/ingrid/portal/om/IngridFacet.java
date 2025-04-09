@@ -36,6 +36,7 @@ public class IngridFacet {
     private String mobileName;
     private String query;
     private String queryType;
+    private boolean singleSelect;
     private String field;
     private String codelist;
     private String codelistField;
@@ -344,5 +345,11 @@ public class IngridFacet {
     }
     public void setOptions(ArrayList<String> options) {
         this.options = options;
+    }
+    public boolean isSingleSelect() {
+        return singleSelect;
+    }
+    public void setSingleSelect(boolean singleSelect) {
+        this.singleSelect = singleSelect;
     }
 }

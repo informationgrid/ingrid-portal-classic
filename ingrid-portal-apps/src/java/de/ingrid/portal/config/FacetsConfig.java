@@ -337,6 +337,11 @@ public class FacetsConfig {
                     ingridFacet.setQueryType( subNode.getValue().toString() );
                 }
 
+                if (!facetNode.getChildren( "singleSelect" ).isEmpty()) {
+                    Node subNode = (Node) facetNode.getChildren( "singleSelect" ).get( 0 );
+                    ingridFacet.setSingleSelect(Boolean.parseBoolean(subNode.getValue().toString()));
+                }
+
                 if (!facetNode.getChildren( "listLength" ).isEmpty()) {
                     Node subNode = (Node) facetNode.getChildren( "listLength" ).get( 0 );
                     ingridFacet.setListLength( Integer.parseInt(subNode.getValue().toString()) );

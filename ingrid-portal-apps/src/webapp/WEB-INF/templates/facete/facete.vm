@@ -440,7 +440,7 @@
                         #set($isCheckbox = false)
                     #end
                     <input id="facet-$facet.getId()" type="checkbox" #if($isDelete)checked#end onclick="location.href='$doAction'" autocomplete="off"
-                        #if(!$isCheckbox && $facet.isDisplay() &&!$facet.isSelect() && $facet.getParent().isSelect()) disabled#end>
+                        #if($facet.isDisplay() &&!$facet.isSelect() && $facet.getParent().isSelect() && $facet.getParent().isSingleSelect()) disabled#end>
                     <span class="control__indicator"></span>
                     <span class="nr-results">
                     #if($number)
