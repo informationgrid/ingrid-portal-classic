@@ -216,6 +216,37 @@ Am Ende der Datei sind Test-Beispiel für UND- sowie ODER-Abfragen (ohne/mit Dia
             </facet>
         </facets>
     </facet>
+    <facet>
+        <name>searchResult.facete.title.folder</name>
+        <id>folder_group</id>
+        <queryType>OR</queryType>
+        <facets>
+            <facet isSelect="true">
+                <name>Fachdaten</name>
+                <query>object_node.tree_path.name:"Fachdaten"</query>
+                <id>fachdaten</id>
+                <display>true</display>
+            </facet>
+            <facet isSelect="true">
+                <name>Fachdaten Dritter</name>
+                <query>object_node.tree_path.name:"Fachdaten Dritter"</query>
+                <id>fachdaten_dritter</id>
+                <display>true</display>
+            </facet>
+            <facet isSelect="true">
+                <name>Geobasisdaten</name>
+                <query>object_node.tree_path.name:"Geobasisdaten"</query>
+                <id>geobasisdaten</id>
+                <display>true</display>
+            </facet>
+            <facet>
+                <name>WWA Aschaffenburg</name>
+                <query>object_node.tree_path.name:"WWA Aschaffenburg"</query>
+                <id>wwa_aschaffenburg</id>
+                <display>true</display>
+            </facet>
+        </facets>
+    </facet>
     <!-- Aktualität (Metadaten)-->
     <!-- Kann erweitert werden -->
     <facet>
