@@ -3,4 +3,5 @@
 #set($isInspire = $searchTerm.contains("inspire") || $searchTerm.contains("inspireidentifiziert"))
 #set($accessConstraint = $UTIL_SEARCH.getDetailValue( $rs.getHitDetail(), "t011_obj_serv.has_access_constraint" ))
 #set($isHVD = $UTIL_SEARCH.getDetailValue( $rs.getHitDetail(), "is_hvd" ) == "true")
-#renderSearchTerm($isOpendata $isInspire $accessConstraint $isHVD)
+#set($folder = $UTIL_SEARCH.getDetailValue( $rs.getHitDetail(), "object_node.tree_path.name", 1 ))
+#renderSearchTerm($isOpendata $isInspire $accessConstraint $isHVD $folder)

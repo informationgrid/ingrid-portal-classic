@@ -577,8 +577,8 @@ $MESSAGES.getStringWithMsgParams('common.result.counter.ranked')
     #end
 #end
 
-#macro(renderSearchTerm $isOpendata $isInspire $hasAccessConstraints $isHVD)
-    #if($isOpendata || $isInspire || $hasAccessConstraints == "Y")
+#macro(renderSearchTerm $isOpendata $isInspire $hasAccessConstraints $isHVD $folder)
+    #if($isOpendata || $isInspire || $hasAccessConstraints == "Y" || $folder)
         <div class="icon--info">
         #if($hasAccessConstraints == "Y")
             <div class="helper icon info">
@@ -604,6 +604,12 @@ $MESSAGES.getStringWithMsgParams('common.result.counter.ranked')
                 </span>
             </div>
             
+        #end
+        #if($folder)
+            <div class="helper icon info">
+                <span class="ic-ic-folder" title="$folder"></span>
+                <span class="text">$folder</span>
+            </div>
         #end
         </div>
     #end
