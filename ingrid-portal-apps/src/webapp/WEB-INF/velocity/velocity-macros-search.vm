@@ -606,10 +606,13 @@ $MESSAGES.getStringWithMsgParams('common.result.counter.ranked')
             
         #end
         #if($folder)
-            <div class="helper icon info">
-                <span class="ic-ic-folder" title="$folder"></span>
-                <span class="text">$folder</span>
-            </div>
+            #set($topFolder = $folder.split(",").get(0))
+            #if("$!topFolder" != "")
+                <div class="helper icon info">
+                    <span class="ic-ic-folder" title="$topFolder"></span>
+                    <span class="text">$topFolder</span>
+                </div>
+            #end
         #end
         </div>
     #end
