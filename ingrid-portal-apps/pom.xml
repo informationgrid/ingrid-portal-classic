@@ -200,7 +200,7 @@
     <dependency>
       <groupId>de.ingrid</groupId>
       <artifactId>ingrid-ibus-client</artifactId>
-      <version>7.0.0</version>
+      <version>7.6.0-SNAPSHOT</version>
       <exclusions>
         <exclusion>
           <groupId>net.sf.ehcache</groupId>
