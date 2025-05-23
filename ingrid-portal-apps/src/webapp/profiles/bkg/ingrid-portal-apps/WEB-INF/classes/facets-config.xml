@@ -312,7 +312,7 @@ Am Ende der Datei sind Test-Beispiel für UND- sowie ODER-Abfragen (ohne/mit Dia
             </facet>
         <!-- Open Data -->
            <facet>
-                <name>Open Data und HVD</name>
+                <name>Open Data / HVD</name>
                 <query>(datatype:metadata is_hvd:true (t04_search.searchterm:opendata OR t04_search.searchterm:opendataident))</query>
                 <id>opendata_hvd_true</id>
                 <parentId>opendata</parentId>
