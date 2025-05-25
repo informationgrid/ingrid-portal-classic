@@ -1,3 +1,16 @@
+## 7.5.2 (23.05.2025)
+
+### Features
+
+* Aktualisierung Hilfetexte (#7502)
+* Portal: Facette HVD einrichten (#6942)
+* AdV-MIS: Portal: Radiobutton "Sonstiges" unter Facette "Produktgruppe" entfernen (#6941)
+
+### Bugfixes
+
+* Darstellung des Distributorkontaktes nicht korrekt (war: Fehlende Adressangaben in den RIPS-Metadaten) (#7589)
+* Fehler bei Zeige in Karte Funktionalität (#7559)
+* Account anlegen - Request Error Diagnostics (#6626)
 
 ## 7.5.0 (21.03.2025)
 
@@ -311,4 +324,3 @@
 * Text-, Design- und Layout-Korrekturen am Portal  (#4604)
 * MVIS-Client ausschließen von Messnetze  (#4573)
 * Portal: Neustart des Docker-Container verursacht Löschung von Einstellung  (#4502)
-    
