@@ -1,4 +1,11 @@
-## 7.5.2 (23.05.2025)
+
+## 7.5.5 (04.07.2025)
+
+### Features
+
+* Filterung/Kennzeichnung von WWA-AB-Daten im LfU-Bayern Portal (#7548)
+
+    ## 7.5.2 (23.05.2025)
 
 ### Features
 
