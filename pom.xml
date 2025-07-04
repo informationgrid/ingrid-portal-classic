@@ -8,7 +8,7 @@
   <groupId>de.ingrid.portal</groupId>
   <artifactId>ingrid-portal-project</artifactId>
   <packaging>pom</packaging>
-  <version>7.5.3-SNAPSHOT</version>
+  <version>7.5.5</version>
   <name>InGrid Portal</name>
   <description>This is the portal where documents can be searched through the iBus and new documents can be managed by
     the InGrid Editor.
@@ -38,7 +38,7 @@
     <webmap-client.version>7.5.2</webmap-client.version>
     <ingrid-codelist-service.version>7.2.0</ingrid-codelist-service.version>
     <ingrid-utils.version>7.1.0</ingrid-utils.version>
-    <measurement.client.version>7.5.5</measurement.client.version>
+    <measurement.client.version>2.0.11</measurement.client.version>
     <ingrid-utils-geo.version>7.5.0</ingrid-utils-geo.version>
     <spring.version>5.3.24</spring.version>
     <log4j.version>2.22.1</log4j.version>
