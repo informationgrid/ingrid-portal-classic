@@ -132,8 +132,8 @@ belong to CATALINA_OPTS.
 
 Another frequently used variable is CATALINA_PID (on *nix only). It
 specifies the location of the file where process id of the forked Tomcat
-java process will be written. This setting is optional. It will enable the
-following features:
+java process will be written. This setting is optional. It will activate
+the following features:
 
  *  better protection against duplicate start attempts and
  *  allows forceful termination of Tomcat process when it does not react to
@@ -163,7 +163,7 @@ On Windows, %CATALINA_BASE%\bin\setenv.bat:
 On *nix, $CATALINA_BASE/bin/setenv.sh:
 
   JRE_HOME=/usr/java/latest
-  CATALINA_PID="$CATALINA_BASE/tomcat.pid"
+  CATALINA_PID="/run/tomcat.pid"
 
 
 The CATALINA_HOME and CATALINA_BASE variables cannot be configured in the
@@ -248,7 +248,8 @@ In CATALINA_BASE:
           The setenv scripts were described above. The tomcat-juli library
           is documented in the Logging chapter in the User Guide.
 
- * conf - Server configuration files (including server.xml)
+ * conf - Server configuration files (typically all of them, including
+          server.xml)
 
  * lib  - Libraries and classes, as explained below
 
@@ -310,8 +311,8 @@ The file will look like the following:
   <?xml version="1.0" encoding="UTF-8"?>
   <Context docBase="${catalina.home}/webapps/manager"
     antiResourceLocking="false" privileged="true" >
-    <Valve className="org.apache.catalina.valves.RemoteAddrValve"
-         allow="127\.0\.0\.1" />
+  <Valve className="org.apache.catalina.valves.RemoteCIDRValve"
+         allow="127.0.0.0/8,::1/128" />
     <Manager sessionAttributeValueClassNameFilter="java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap"/>
   </Context>
 
@@ -421,9 +422,9 @@ For further reading:
 
       https://httpd.apache.org/
 
-To disable Apache Tomcat Native library:
+To deactivate Apache Tomcat Native library:
 
- - To disable Apache Tomcat Native library when it is installed, or
+ - To deactivate Apache Tomcat Native library when it is installed, or
  - To remove the warning that is logged during Tomcat startup when the
    library is not installed:
 

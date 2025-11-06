@@ -73,12 +73,15 @@
   <!--                       contents. [null]                               -->
   <!--                                                                      -->
   <!--   sendfileSize        If the connector used supports sendfile, this  -->
-  <!--                       represents the minimal file size in KB for     -->
+  <!--                       represents the minimal file size in KiB for    -->
   <!--                       which sendfile will be used. Use a negative    -->
   <!--                       value to always disable sendfile.  [48]        -->
   <!--                                                                      -->
   <!--   useAcceptRanges     Should the Accept-Ranges header be included    -->
   <!--                       in responses where appropriate? [true]         -->
+  <!--                       Deprecated. This option will be removed        -->
+  <!--                       without replacement in Tomcat 12 onwards where -->
+  <!--                       it will effectively be hard coded to true.     -->
   <!--                                                                      -->
   <!--  For directory listing customization. Checks localXsltFile, then     -->
   <!--  globalXsltFile, then defaults to original behavior.                 -->
@@ -106,9 +109,11 @@
   <!--                       listings is enabled? [true]                    -->
   <!--                                                                      -->
   <!--   allowPartialPut     Should the server treat an HTTP PUT request    -->
-  <!--                       with a Range header as a partial PUT? Note     -->
-  <!--                       that RFC 7233 clarified that Range headers are -->
-  <!--                       only valid for GET requests. [true]            -->
+  <!--                       with a Content-Range header as a partial PUT?  -->
+  <!--                       Note that while RFC 7231 clarified that such a -->
+  <!--                       PUT with a Content-Range header field is a bad -->
+  <!--                       request, RFC 9110 (which obsoletes RFC 7231)   -->
+  <!--                       now allows partial PUT. [true]                 -->
 
     <servlet>
         <servlet-name>default</servlet-name>
@@ -190,7 +195,8 @@
   <!--                       arrays, to improve performance in some cases?  -->
   <!--                       [false]                                        -->
   <!--                                                                      -->
-  <!--   ieClassId           The class-id value to be sent to Internet      -->
+  <!--   ieClassId           Deprecated. Will be removed in Tomcat 10.1     -->
+  <!--                       The class-id value to be sent to Internet      -->
   <!--                       Explorer when using <jsp:plugin> tags.         -->
   <!--                       [clsid:8AD9C840-044E-11D1-B3E9-00805F499D93]   -->
   <!--                                                                      -->
@@ -360,7 +366,7 @@
   <!--                        the arguments to the OS. See the CGI How-To   -->
   <!--                        for more details. The default varies by       -->
   <!--                        platform.                                     -->
-  <!--                        Windows: [[a-zA-Z0-9\Q-_.\\/:\E]+]            -->
+  <!--                        Windows: [[\w\Q-.\\/:\E]+]                    -->
   <!--                        Others:  [.*]                                 -->
   <!--                        Note that internally the CGI Servlet treats   -->
   <!--                        [.*] as a special case to improve performance -->
@@ -371,7 +377,7 @@
   <!--                        command line arguments must match else the    -->
   <!--                        request will be rejected. The default matches -->
   <!--                        the allowed values defined by RFC3875.        -->
-  <!--                        [[a-zA-Z0-9\Q%;/?:@&,$-_.!~*'()\E]+]          -->
+  <!--                        [[\w\Q%;/?:@&,$-.!~*'()\E]+]                  -->
   <!--                                                                      -->
   <!--   enableCmdLineArguments                                             -->
   <!--                        Are command line parameters generated from    -->
@@ -838,6 +844,10 @@
     <mime-mapping>
         <extension>avi</extension>
         <mime-type>video/x-msvideo</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>avif</extension>
+        <mime-type>image/avif</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>avx</extension>
@@ -1768,6 +1778,10 @@
         <mime-type>application/vnd.geogebra.file</mime-type>
     </mime-mapping>
     <mime-mapping>
+        <extension>ggs</extension>
+        <mime-type>application/vnd.geogebra.slides</mime-type>
+    </mime-mapping>
+    <mime-mapping>
         <extension>ggt</extension>
         <mime-type>application/vnd.geogebra.tool</mime-type>
     </mime-mapping>
@@ -2121,7 +2135,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>js</extension>
-        <mime-type>application/javascript</mime-type>
+        <mime-type>text/javascript</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>jsf</extension>
@@ -2138,6 +2152,10 @@
     <mime-mapping>
         <extension>jspf</extension>
         <mime-type>text/plain</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>jxl</extension>
+        <mime-type>image/jxl</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>kar</extension>
@@ -2308,6 +2326,14 @@
         <mime-type>audio/mpeg</mime-type>
     </mime-mapping>
     <mime-mapping>
+        <extension>m2t</extension>
+        <mime-type>video/mp2t</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>m2ts</extension>
+        <mime-type>video/mp2t</mime-type>
+    </mime-mapping>
+    <mime-mapping>
         <extension>m2v</extension>
         <mime-type>video/mpeg</mime-type>
     </mime-mapping>
@@ -2470,6 +2496,10 @@
     <mime-mapping>
         <extension>mjp2</extension>
         <mime-type>video/mj2</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>mjs</extension>
+        <mime-type>text/javascript</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>mk3d</extension>
@@ -2673,7 +2703,7 @@
     </mime-mapping>
     <mime-mapping>
         <extension>mts</extension>
-        <mime-type>model/vnd.mts</mime-type>
+        <mime-type>video/mp2t</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>mus</extension>
@@ -2908,6 +2938,10 @@
     <mime-mapping>
         <extension>oprc</extension>
         <mime-type>application/vnd.palm</mime-type>
+    </mime-mapping>
+    <mime-mapping>
+        <extension>opus</extension>
+        <mime-type>audio/ogg</mime-type>
     </mime-mapping>
     <mime-mapping>
         <extension>org</extension>
@@ -3957,6 +3991,10 @@
         <mime-type>application/x-msterminal</mime-type>
     </mime-mapping>
     <mime-mapping>
+        <extension>ts</extension>
+        <mime-type>video/mp2t</mime-type>
+    </mime-mapping>
+    <mime-mapping>
         <extension>tsd</extension>
         <mime-type>application/timestamped-data</mime-type>
     </mime-mapping>
@@ -4726,7 +4764,7 @@
   <!-- If you define welcome files in your own application's web.xml        -->
   <!-- deployment descriptor, that list *replaces* the list configured      -->
   <!-- here, so be sure to include any of the default values that you wish  -->
-  <!-- to use within your application.                                       -->
+  <!-- to use within your application.                                      -->
 
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>

@@ -8,12 +8,12 @@
   Licensed under the EUPL, Version 1.1 or – as soon they will be
   approved by the European Commission - subsequent versions of the
   EUPL (the "Licence");
-  
+
   You may not use this work except in compliance with the Licence.
   You may obtain a copy of the Licence at:
-  
+
   http://ec.europa.eu/idabc/eupl5
-  
+
   Unless required by applicable law or agreed to in writing, software
   distributed under the Licence is distributed on an "AS IS" basis,
   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -109,6 +109,7 @@ dom4j: otherwise problems in portal-base and portal-app webapp, when writing PSM
                 <include>xpp3:xpp3_min</include>
                 <include>com.thoughtworks.xstream:xstream</include>
                 <include>backport-util-concurrent:backport-util-concurrent</include>
+                <include>commons-dbcp:commons-dbcp</include>
 <!-- commented again, cause works with PSML in database, see comment above -->
 <!--
         <include>dom4j:dom4j</include>

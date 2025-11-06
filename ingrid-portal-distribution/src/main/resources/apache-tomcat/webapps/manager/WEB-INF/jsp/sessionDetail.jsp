@@ -1,25 +1,3 @@
-<%--
-  **************************************************-
-  InGrid Portal Distribution
-  ==================================================
-  Copyright (C) 2014 - 2025 wemove digital solutions GmbH
-  ==================================================
-  Licensed under the EUPL, Version 1.2 or – as soon they will be
-  approved by the European Commission - subsequent versions of the
-  EUPL (the "Licence");
-  
-  You may not use this work except in compliance with the Licence.
-  You may obtain a copy of the Licence at:
-  
-  https://joinup.ec.europa.eu/software/page/eupl
-  
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the Licence is distributed on an "AS IS" basis,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the Licence for the specific language governing permissions and
-  limitations under the Licence.
-  **************************************************#
-  --%>
 <?xml version="1.0" encoding="UTF-8"?>
 <%--
  Licensed to the Apache Software Foundation (ASF) under one or more
@@ -37,7 +15,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 --%>
-<%@page session="false" contentType="text/html; charset=ISO-8859-1" %>
+<%@page session="false" contentType="text/html; charset=UTF-8" %>
 <%@page import="java.util.Enumeration" %>
 <%@page import="javax.servlet.http.HttpSession" %>
 <%@page import="org.apache.catalina.Session" %>
@@ -67,15 +45,15 @@
            "?path=" + path + "&version=" + version));
 %>
 <head>
-    <meta http-equiv="content-type" content="text/html; charset=iso-8859-1"/>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="pragma" content="no-cache"/><!-- HTTP 1.0 -->
     <meta http-equiv="cache-control" content="no-cache,must-revalidate"/><!-- HTTP 1.1 -->
     <meta http-equiv="expires" content="0"/><!-- 0 is an invalid value and should be treated as 'now' -->
     <meta http-equiv="content-language" content="en"/>
-    <meta name="author" content="Cedrik LIME"/>
-    <meta name="copyright" content="copyright 2005-2021 the Apache Software Foundation"/>
+    <meta name="copyright" content="copyright 2005-2025 the Apache Software Foundation"/>
     <meta name="robots" content="noindex,nofollow,noarchive"/>
     <title>Sessions Administration: details for <%= currentSessionId %></title>
+    <link href="<%=request.getContextPath()%>/images/favicon.ico" rel="icon" type="image/x-icon" />
 </head>
 <body>
 <% if (currentHttpSession == null) { %>
@@ -122,7 +100,7 @@
      </tr>
    </table>
 
-   <form method="post" action="<%= submitUrl %>">
+   <form method="POST" action="<%= submitUrl %>">
      <div>
        <input type="hidden" name="sessionId" value="<%= currentSessionId %>" />
        <input type="hidden" name="action" value="sessionDetail" />
@@ -169,7 +147,7 @@
    %>
            <tr>
                <td align="center">
-                   <form method="post" action="<%= submitUrl %>">
+                   <form method="POST" action="<%= submitUrl %>">
                        <div>
                            <input type="hidden" name="action" value="removeSessionAttribute" />
                            <input type="hidden" name="sessionId" value="<%= currentSessionId %>" />
@@ -195,7 +173,7 @@
    </table>
 <% } // endif%>
 
-<form method="post" action="<%=submitUrl%>">
+<form method="POST" action="<%=submitUrl%>">
   <p style="text-align: center;">
     <input type="submit" value="Return to session list" />
   </p>

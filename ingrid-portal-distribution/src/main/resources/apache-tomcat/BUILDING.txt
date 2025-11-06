@@ -19,7 +19,7 @@
             Building The Apache Tomcat 9.0 Servlet/JSP Container
             ====================================================
 
-This subproject contains the source code for Tomcat 9.0, a container that
+This project contains the source code for Tomcat 9.0, a container that
 implements the Servlet 4.0, JSP 2.3, EL 3.0, WebSocket 1.1 and JASPIC 1.1
 specifications from the Java Community Process <https://www.jcp.org/>.
 
@@ -35,8 +35,8 @@ source distribution, do the following:
 
  1. If the JDK is already installed, skip to (2).
 
- 2. Download a version 8 of Java Development Kit (JDK) release (use the
-    latest update available for your chosen version) from one of:
+ 2. Download a version 17 or later of Java Development Kit (JDK) release (use
+    the latest update available for your chosen version) from one of:
 
         http://www.oracle.com/technetwork/java/javase/downloads/index.html
         http://openjdk.java.net/install/index.html
@@ -64,9 +64,9 @@ source distribution, do the following:
     into which you installed the JDK release.
 
 
-(2) Install Apache Ant version 1.9.10 or later on your computer.
+(2) Install Apache Ant version 1.10.2 or later on your computer.
 
- 1. If Apache Ant version 1.9.10 or later is already installed on your
+ 1. If Apache Ant version 1.10.2 or later is already installed on your
     computer, skip to (3).
 
  2. Download a binary distribution of Ant from:
@@ -94,7 +94,7 @@ source distribution, do the following:
 (3.1) Checkout or obtain the source code for Tomcat 9.0
 
 Clone the source using git, then checkout a specific major branch or
-master for the latest code development, or download and unpack a source
+main for the latest code development, or download and unpack a source
 package.
 
  *  Tomcat GitHub repository URL:
@@ -248,19 +248,42 @@ You can build them by using the following commands:
     cd ${tomcat.source}
     ant embed
 
+(5.4) Building the Windows installer
+
+The Windows installer uses the NSIS installer framework.
+It can be build on Windows, on any other platform which provides
+the Wine Windows emulator or the NSIS binary "makensis".
+
+Linux and MacOS are platforms, on which you can install Wine or
+"makensis".
+
+Selecting between Wine and makensis on non-Windows platforms can
+be done by setting the ant property "nsis.tool" to either "wine"
+or "makensis" in build.properties.
+
+If you want to sign the installer, you will need to set some
+properties with names prefixed with "codesigning" in your build.properties.
+For details see the targets "jsign-installer" and "jsign-uninstaller"
+in build.xml and the default property values in build.properties.default.
+
 
 (6) Building a full release (as provided via the ASF download pages)
 
+ 1. Remark on building the Windows installer
+
     A full release includes the Windows installer which requires a Windows
-    environment to be available to create it. If not building in a Windows
-    environment, the build scripts assume that Wine is available. If this is not
-    the case, the skip.installer property may be set to skip the creation of the
-    Windows installer.
+    environment, an installed Wine emulator or an installed native
+    "makensis" binary from the NSIS project. Creating a reproducible
+    installer using the "makensis" option needs a special build of "makensis".
+    For details see below.
 
-    Provided that Wine is available on non-Windows platforms, a full release
-    build may be made on Windows, Linux or MacOS.
+    Provided that Wine or "makensis" is available on non-Windows platforms,
+    a full release build may be made on Windows, Linux or MacOS.
 
- 1. Configure GPG, if needed
+    If you do not want to build the Windows installer, the skip.installer
+    property may be set to skip the creation of the Windows installer.
+
+ 2. Configure GPG, if needed
 
     If the released artifacts have to be cryptographically signed with a
     PGP signature, like the official ASF releases are, the following
@@ -272,19 +295,19 @@ You can build them by using the following commands:
     You do not need it if you do not plan to sign the release.
 
     If "gpg.exec" property does not point to an existing file, it will be
-    ignored and this feature will be disabled.
+    ignored and this feature will be deactivated.
 
     You will be prompted for the GPG passphrase when the release build
     starts, unless "gpg.passphrase" property is set.
 
- 2. If building the Windows installer
+ 3. If building the Windows installer on Windows
 
     If running the build in a UAC enabled environment, building the Windows
     installer requires elevated privileges. The simplest way to do this is to
     open the command prompt used for the build with the "Run as administrator"
     option.
 
- 3. Configure the code signing service
+ 4. Configure the code signing service
 
     ASF committers performing official releases will need to configure the code
     signing service so that the Windows installer is signed during the build
@@ -296,13 +319,87 @@ You can build them by using the following commands:
         # Code signing of Windows installer
         do.codesigning=true
         codesigning.storepass=request-via-pmc
+        codesigning.keypass=request-via-pmc
 
     Release managers will be provided with the necessary credentials by the PMC.
 
- 4. Build the release:
+    If you want to verify the installer from a release by rebuilding it,
+    you can use the detached signatures provided in the official releases.
+    In this case you have to use the sources from the source release
+    archive, which contains these signatures. You also have to build
+    on Windows, use Wine, or use a special build of makensis to create
+    a reproducible installer, that fits the signature files.
+
+ 5. Using a special "makensis" build on non-Windows (optional)
+
+    If you want to build a reproducible installer on non-Windows
+    by using "makensis" instead of "Wine", you need to build
+    "makensis" from a source download yourself. To build "makensis",
+    you need python, scons and a C compiler. You can build "makensis"
+    via an Ant target:
+
+    ant local-makensis
+
+    or you can build it manually using the following recipe.
+
+    First detect the needed version by looking for nsis.version
+    in build.properties.default.
+
+    Download and extract NSIS for Windows by running "ant download-dist". Note
+    the NSIS installation path from the output or by checking "nsis.bin.home" in
+    build.properties.default. For example by default:
+    nsis.bin.home=${base.path}/nsis-${nsis.version}
+
+    The corresponding sources will be downloaded to "nsis.src.home" in
+    build.properties.default. For example by default:
+    nsis.src.home=${base.path}/nsis-${nsis.version}-src
+
+    Install the scons Python software construction tool.
+
+    Run the following command in the extracted NSIS source directory:
+
+        scons UNICODE=yes PREFIX=${base.path}/nsis-${nsis.version}/Bin SKIPPLUGINS=all SKIPUTILS=all SKIPMISC=all NSIS_CONFIG_CONST_DATA_PATH=no VERSION=${nsis.version} install-compiler
+
+    You need to specify the correct value in VERSION (this ends up in the installer binary
+    so it needs to match). The PREFIX is not important, but you need to make sure
+    that the created binary "makensis" gets finally put into the "Bin" directory of
+    the NSIS binary distribution that "ant download-dist" installed. When using
+    "NSIS_CONFIG_CONST_DATA_PATH=no" the binary is independent of the value of "PREFIX".
+
+    In addition set the ant property "nsis.tool" to "makensis" in
+    build.properties.
+
+ 6. Build the release:
+
+    Apache Tomcat releases are fully reproducible.
+
+    Release managers producing release builds must follow the following
+    procedure:
+
+    cd ${tomcat.source}
+    ant pre-release
+    ant release
+    git commit -a -m "Tag <version-number>"
+    git tag <vesion-number>
+    git push origin <version-number>
+    ant release
+    git reset --hard HEAD~1
+
+    The output from either 'ant release' call may be uploaded as the official
+    release since they will be identical. It is recommended that the output from
+    the second call is used.
+
+    Anyone wishing to reproduce an official build must do so from an official
+    source release. The build tool chain defined in build.properties.release
+    must be used to reproduce an official build. Once unpacked to
+    ${tomcat.source}, the following steps must be followed
 
     cd ${tomcat.source}
     ant release
+
+    Following the same steps without using the defined build tool chain will
+    create a release that is functionally the same as an official release but
+    not bit for bit identical.
 
 
 (7) Tests
@@ -330,7 +427,7 @@ implementations of Tomcat connectors: NIO, NIO2 and APR. (If you are not
 familiar with Tomcat connectors, see config/http.html in documentation for
 details).
 
-The 3 runs are enabled and disabled individually by the following
+The 3 runs are activated and deactivated individually by the following
 properties, which all are "true" by default:
 
     execute.test.nio=true
@@ -343,10 +440,10 @@ where the library binaries are located.
 
 By default the "test.apr.loc" property specifies the following location:
 
-    output/build/bin/native/
+    output/build/bin/
 
 If you are on Windows and want to test the APR connector you can put the
-tcnative-1.dll file into ${tomcat.source}/bin/native/ and it will be copied
+tcnative-1.dll file into ${tomcat.source}/bin/ and it will be copied
 into the above directory when the build runs.
 
 The unit tests include tests of the clustering functionality which require
@@ -430,7 +527,7 @@ as for the property "test.name".
  Configuration properties are "junit.formatter.type",
  "junit.formatter.extension" and "junit.formatter.usefile".
 
- For example the following property disables generation of separate report
+ For example the following property deactivates generation of separate report
  files:
 
         junit.formatter.usefile=false
@@ -454,36 +551,54 @@ NOTE: Cobertura is licensed under GPL v2 with parts of it being under
 
  Using Cobertura currently requires setting test.threads configuration
  property to the value of 1. Setting that property to a different value
- will disable code coverage.
+ will deactivate code coverage.
 
  The report files by default are written to
 
         output/coverage
 
- 7. The performance tests are written to run reasonably powerful machines (such
-    as a developer may use day to day) assuming no other resource hungry
+ 7. The performance tests are written to run on reasonably powerful machines
+    (such as a developer may use day to day) assuming no other resource hungry
     processes are running.
 
-    These assumptions are not always true (e.g. on CI systems running in a
-    virtual machine) so the performance tests may be disabled by using the
-    following property:
+    Performance tests may be an absolute test (how long to complete a number
+    of iterations of an operation or set of operations) or may be a relative
+    test (how long two or more different approaches take to generate the same
+    result). The absolute tests may be destructive in that they run until the
+    system runs out of resources.
+
+    Where there is no benefit in running an absolute performance test as part
+    of a standard test run, the test will be excluded by naming it
+    Tester*Performance.java.
+
+    The relative tests are included as part of a standard test run however,
+    where the assumptions made about host capabilities are  not true (e.g. on
+    CI systems running in virtual machine) the tests may be deactivated by
+    using the following property:
 
         test.excludePerformance=true
 
- 8. Some tests include checks that the access log valve entries are as expected.
+ 8. Some tests are require large heaps (e.g. 8GB). The CI systems used by the
+    project either cannot support heaps of this size or do not support them by
+    default. These tests are therefore disabled by default and may be enabled by
+    using the following property:
+
+        test.includeLargeHeap=true
+
+ 9. Some tests include checks that the access log valve entries are as expected.
     These checks include timings. On slower / loaded systems these checks will
     often fail. The checks may be relaxed by using the following property:
 
         test.relaxTiming=true
 
- 9. It is known that some platforms (e.g. OSX El Capitan) require IPv4 to
-    be the default for the multicast tests to work. This is configured by
-    the following property:
+ 10. It is known that some platforms (e.g. OSX El Capitan) require IPv4 to
+     be the default for the multicast tests to work. This is configured by
+     the following property:
 
         java.net.preferIPv4Stack=true
 
- 10. By default the output of unit tests is sent to the console and can be
-     quite verbose. The output can be disabled by setting the property:
+ 11. By default the output of unit tests is sent to the console and can be
+     quite verbose. The output can be deactivated by setting the property:
 
         test.verbose=false
 
@@ -518,26 +633,26 @@ target. The command is:
     ant -Dexecute.validate=true validate
 
 
-(8.2) FindBugs
+(8.2) SpotBugs
 
-NOTE: FindBugs is licensed under LGPL. Using Findbugs during Tomcat build is
+NOTE: SpotBugs is licensed under LGPL. Using SpotBugs during Tomcat build is
       optional and is off by default.
 
       See https://spotbugs.github.io/ for more information.
 
-To enable FindBugs, add the following property to build.properties file:
+To enable SpotBugs, add the following property to build.properties file:
 
-    execute.findbugs=true
+    execute.spotbugs=true
 
-To compile Tomcat classes and generate a FindBugs report, call the
-"findbugs" target. For example:
+To compile Tomcat classes and generate a SpotBugs report, call the
+"spotbugs" target. For example:
 
     cd ${tomcat.source}
-    ant -Dexecute.findbugs=true findbugs
+    ant -Dexecute.spotbugs=true spotbugs
 
 The report file by default is written to
 
-    output/findbugs
+    output/spotbugs
 
 
 (8.3) End-of-line conventions check
