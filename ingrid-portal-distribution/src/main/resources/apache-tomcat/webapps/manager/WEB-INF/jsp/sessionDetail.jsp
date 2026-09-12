@@ -72,7 +72,7 @@
     <meta http-equiv="cache-control" content="no-cache,must-revalidate"/><!-- HTTP 1.1 -->
     <meta http-equiv="expires" content="0"/><!-- 0 is an invalid value and should be treated as 'now' -->
     <meta http-equiv="content-language" content="en"/>
-    <meta name="copyright" content="copyright 2005-2025 the Apache Software Foundation"/>
+    <meta name="copyright" content="copyright 2005-2026 the Apache Software Foundation"/>
     <meta name="robots" content="noindex,nofollow,noarchive"/>
     <title>Sessions Administration: details for <%= currentSessionId %></title>
     <link href="<%=request.getContextPath()%>/images/favicon.ico" rel="icon" type="image/x-icon" />
@@ -80,6 +80,7 @@
 <body>
 <% if (currentHttpSession == null) { %>
    <h1><%=currentSessionId%></h1>
+   <div class="error"><%= JspHelper.escapeXml(request.getAttribute("error")) %></div>
 <% } else { %>
    <h1>Details for Session <%= currentSessionId %></h1>
 

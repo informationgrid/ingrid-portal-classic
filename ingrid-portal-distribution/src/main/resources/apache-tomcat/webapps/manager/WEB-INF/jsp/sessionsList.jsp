@@ -41,14 +41,33 @@
 <%@page import="java.util.Collection" %>
 <%@page import="org.apache.catalina.manager.JspHelper" %>
 <%@page import="org.apache.catalina.Session" %>
-<%@page import="org.apache.catalina.ha.session.DeltaSession" %>
 <%@page import="org.apache.catalina.util.ContextName" %>
 <!DOCTYPE html
      PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 
-<%@page import="org.apache.catalina.manager.DummyProxySession"%><html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<%@page import="java.lang.reflect.Method"%>
+<%@page import="org.apache.catalina.manager.DummyProxySession"%>
+<%!
+private static final Class<?> deltaSessionClass;
+private static final Method isPrimaryMethod;
+static {
+    Class<?> clazz = null;
+    Method method = null;
+    try {
+        clazz = Class.forName("org.apache.catalina.ha.session.DeltaSession");
+        method = clazz.getMethod("isPrimarySession");
+    } catch (ClassNotFoundException | NoClassDefFoundError e) {
+        // Expected when either or both clustering JARs are not present
+    } catch (NoSuchMethodException e) {
+        // Should not happen if the class is available
+    }
+    deltaSessionClass = clazz;
+    isPrimaryMethod = method;
+}
+%>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <% String path = (String) request.getAttribute("path");
    String version = (String) request.getAttribute("version");
    ContextName cn = new ContextName(path, version);
@@ -63,7 +82,7 @@
     <meta http-equiv="cache-control" content="no-cache,must-revalidate"/><!-- HTTP 1.1 -->
     <meta http-equiv="expires" content="0"/><!-- 0 is an invalid value and should be treated as 'now' -->
     <meta http-equiv="content-language" content="en"/>
-    <meta name="copyright" content="copyright 2005-2025 the Apache Software Foundation"/>
+    <meta name="copyright" content="copyright 2005-2026 the Apache Software Foundation"/>
     <meta name="robots" content="noindex,nofollow,noarchive"/>
     <title>Sessions Administration for <%= JspHelper.escapeXml(cn.getDisplayName()) %></title>
     <link href="<%=request.getContextPath()%>/images/favicon.ico" rel="icon" type="image/x-icon" />
@@ -126,11 +145,15 @@
     for (Session currentSession : activeSessions) {
        String currentSessionId = JspHelper.escapeXml(currentSession.getId());
        String type;
-       if (currentSession instanceof DeltaSession) {
-           if (((DeltaSession) currentSession).isPrimarySession()) {
+       if (deltaSessionClass != null && deltaSessionClass.isInstance(currentSession)) {
+           try {
+               if (Boolean.TRUE.equals(isPrimaryMethod.invoke(currentSession))) {
+                   type = "Primary";
+               } else {
+                   type = "Backup";
+               }
+           } catch (Exception e) {
                type = "Primary";
-           } else {
-               type = "Backup";
            }
        } else if (currentSession instanceof DummyProxySession) {
            type = "Proxy";
